@@ -1,0 +1,32 @@
+
+
+postgres=# CREATE TABLE employee (emp_name varchar(50) NOT NULL, city varchar(50));
+CREATE TABLE
+
+
+postgres=# CREATE TABLE works (emp_name varchar(50) REFERENCES employee(emp_name),company_name varchar(50) REFERENCES company(company_name),salary numeric(10,2));
+CREATE TABLE
+
+
+postgres=# CREATE TABLE company (company_name varchar(50) NOT NULL, city varchar(50));
+CREATE TABLE
+
+
+postgres=# CREATE TABLE managers (emp_name varchar(50) REFERENCES employee(emp_name),manager_name varchar(50);
+CREATE TABLE
+
+
+postgres=# INSERT INTO employee VALUES ('Farjaz', 'New York'),('Govind', 'San Francisco'),('Fazal', 'Los Angeles'),('Farzana', 'Chicago'),('Salih', 'Boston');
+INSERT 0 5
+
+
+postgres=# INSERT INTO company VALUES ('Infosys', 'New York'),('Wipro', 'San Francisco'),('Google', 'Mountain View'),('Microsoft', 'Seattle'),('Amazon', 'Seattle');
+INSERT 0 5
+
+
+postgres=# INSERT INTO works VALUES ('Farjaz','Infosys', 12000.00),('Govind', 'Wipro', 13000.00),('Fazal', 'Google', 15000.00),('Farzana', 'Microsoft', 11000.00),('Salih', 'Amazon', 14000.00);
+INSERT 0 5
+
+
+postgres=# INSERT INTO managers VALUES ('Farjaz', 'Salil Parekh'),('Govind', 'Thierry Delaporte'),('Fazal', 'Sundar Pichai'),('Farzana', 'Satya Nadella'),('Salih', 'Andy Jassy');
+INSERT 0 4

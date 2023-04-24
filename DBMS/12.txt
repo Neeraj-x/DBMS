@@ -1,0 +1,28 @@
+
+postgres=#  create or replace function fibanocci(n int) returns setof int as $$
+postgres$# declare
+postgres$# a int:=1;
+postgres$# b int:=0;
+postgres$# c int:=0;
+postgres$# begin
+postgres$# loop
+postgres$# exit when n<c;
+postgres$# return next c;
+postgres$# c=a+b;
+postgres$# a:=b;
+postgres$# b:=c;
+postgres$# end loop;
+postgres$# end;
+postgres$# $$ language plpgsql;
+CREATE FUNCTION
+postgres=# select fibanocci(8);
+ fibanocci
+-----------
+         0
+         1
+         1
+         2
+         3
+         5
+         8
+(7 rows)

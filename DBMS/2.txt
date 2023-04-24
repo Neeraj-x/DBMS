@@ -1,0 +1,21 @@
+postgres=# CREATE TABLE sales_man (
+     salesman_no varchar(5) PRIMARY KEY,
+     s_name varchar(15) NOT NULL,
+     place varchar(15),
+     phone varchar(10) UNIQUE
+     );
+CREATE TABLE
+
+postgres=# CREATE TABLE sales_order (
+     order_no varchar(10) PRIMARY KEY,
+     order_date date NOT NULL,
+     salesman_no varchar(5) REFERENCES sales_man(salesman_no),
+     del_type char(1) CHECK (del_type IN ('P', 'F')),
+     order_status varchar(15) CHECK (order_status IN ('Inprocess','Fullfilled','Backorder','Cancelled')
+     );
+CREATE TABLE
+
+postgres=# INSERT INTO sales_man VALUES 
+     ('101', 'Rasheed', 'Calicut', '9754136985'), 
+     ('102', 'Babu', 'Chennai', '7241536987'), 
+     ('103', 'Saji', 'Kochi', '8655412987');

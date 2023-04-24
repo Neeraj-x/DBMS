@@ -1,0 +1,41 @@
+postgres=# CREATE OR REPLACE FUNCTION calculate_areas()
+postgres-# RETURNS VOID AS $$
+postgres$# DECLARE
+postgres$#    pi NUMERIC := 3.14159;
+postgres$#    radius INTEGER;
+postgres$#    area NUMERIC;
+postgres$#    row RECORD;
+postgres$# BEGIN
+postgres$#    EXECUTE 'CREATE TABLE areas (radius INTEGER, area NUMERIC)';
+postgres$#    FOR radius IN 3..7 LOOP
+postgres$#       area := pi * radius * radius;
+postgres$#       EXECUTE 'INSERT INTO areas (radius, area) VALUES ($1, $2)'
+postgres$#          USING radius, area;
+postgres$#    END LOOP;
+postgres$#    FOR row IN SELECT * FROM areas LOOP
+postgres$#       RAISE NOTICE 'Radius: %, Area: %', row.radius, row.area;
+postgres$#    END LOOP;
+postgres$# END;
+postgres$# $$ LANGUAGE plpgsql;
+CREATE FUNCTION
+postgres=# SELECT calculate_areas();
+NOTICE:  Radius: 3, Area: 28.27431
+NOTICE:  Radius: 4, Area: 50.26544
+NOTICE:  Radius: 5, Area: 78.53975
+NOTICE:  Radius: 6, Area: 113.09724
+NOTICE:  Radius: 7, Area: 153.93791
+ calculate_areas
+-----------------
+
+(1 row)
+
+
+postgres=# SELECT * FROM areas;
+ radius |   area
+--------+-----------
+      3 |  28.27431
+      4 |  50.26544
+      5 |  78.53975
+      6 | 113.09724
+      7 | 153.93791
+(5 rows)
